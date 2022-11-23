@@ -10,8 +10,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.4",
+    "@heroicons/react": "^2.0.13",
     "@prisma/client": "^4.5.0",
-    "@tanstack/react-query": "^4.16.0",
+    "@tanstack/react-query": "^4.16.1",
     "@trpc/client": "^10.0.0",
     "@trpc/next": "^10.0.0",
     "@trpc/react-query": "^10.0.0",
@@ -20,6 +22,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "superjson": "1.9.1",
+    "wagmi": "^0.8.6",
     "zod": "^3.18.0"
   },
   "devDependencies": {
