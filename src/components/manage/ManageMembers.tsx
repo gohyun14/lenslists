@@ -57,7 +57,7 @@ const ManageMembers = ({ members, setMembers }: ManageMembersProps) => {
               ? item.picture.__typename === "MediaSet"
                 ? ipfsLinkTransform(item.picture.original.url)
                 : ipfsLinkTransform(item.picture.uri)
-              : null,
+              : "",
         }));
         setSearchResults(res);
       });

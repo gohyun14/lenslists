@@ -42,18 +42,12 @@ model ListFollower {
   @@id([listId, follower])
 }
 
-model Tag {
-  tag     String    @id
-  ListTag ListTag[]
-}
-
 model ListTag {
-  list    List   @relation(fields: [listId], references: [id])
-  listId  String
-  tag     Tag    @relation(fields: [tagName], references: [tag])
-  tagName String
+  list   List   @relation(fields: [listId], references: [id])
+  listId String
+  tag    String
 
-  @@id([listId, tagName])
+  @@id([listId, tag])
 }
 
 /// max 8 tags per post

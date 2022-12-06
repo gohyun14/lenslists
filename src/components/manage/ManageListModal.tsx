@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
+import { trpc } from "../../utils/trpc";
+import { type List } from "@prisma/client";
 
 import InputControlled from "../UI/InputControlled";
 import TextAreaControlled from "../UI/TextAreaControlled";
@@ -11,20 +13,32 @@ export type memberType = {
   memberId: string;
   memberName: string;
   memberHandle: string;
-  memberPicture: string | null;
+  memberPicture: string;
 };
 
 type ManageListModalProps = {
-  isCreate: boolean;
   isOpen: boolean;
   closeModal: () => void;
+  userAddress: `0x${string}`;
+  refetchLists: () => void;
+  list: List | undefined;
 };
 
 const ManageListModal = ({
-  isCreate,
   isOpen,
   closeModal,
+  userAddress,
+  refetchLists,
+  list,
 }: ManageListModalProps) => {
+  const createListMutation = trpc.list.createList.useMutation();
+  const deleteListMembersMutation =
+    trpc.listMember.deleteAllMembersByListId.useMutation();
+  const createListMembersMutation =
+    trpc.listMember.createManyMembersByListId.useMutation();
+  const deleteListTags = trpc.listTag.deleteAllTagsByListId.useMutation();
+  const createListTags = trpc.listTag.createManyTagsByListId.useMutation();
+
   // name state and validation
   const [name, setName] = useState("");
   const [debouncedName] = useDebounce(name, 450);
@@ -42,7 +56,7 @@ const ManageListModal = ({
 
   // description state and validation
   const [description, setDescription] = useState("");
-  const [debouncedDescription] = useDebounce(name, 450);
+  const [debouncedDescription] = useDebounce(description, 450);
   const [descriptionError, setDescriptionError] = useState("");
 
   useEffect(() => {
@@ -56,30 +70,47 @@ const ManageListModal = ({
   }, [debouncedDescription, descriptionError]);
 
   // tag state
-  const [tags, setTags] = useState<string[]>(["hello", "there", "sir"]);
+  const [tags, setTags] = useState<string[]>([]);
+  const {
+    isLoading,
+    data: tagsData,
+    refetch,
+  } = trpc.listTag.getAllTagsByListId.useQuery(
+    {
+      listId: list?.id as string,
+    },
+    {
+      refetchOnWindowFocus: false,
+      enabled: list?.id !== undefined,
+      onSuccess: (data) => {
+        setTags(data.map((tag) => tag.tag));
+      },
+    }
+  );
 
   // members state
-  const beforeMembers = [
-    {
-      memberId: "0",
-      memberName: "Zero",
-      memberHandle: "0.lens",
-      memberPicture: null,
-    },
-    {
-      memberId: "1",
-      memberName: "One",
-      memberHandle: "1.lens",
-      memberPicture: null,
-    },
-    {
-      memberId: "2",
-      memberName: "Two",
-      memberHandle: "2.lens",
-      memberPicture: null,
-    },
-  ];
-  const [afterMembers, setAfterMembers] = useState<memberType[]>([]);
+  // const {
+  //   isLoading,
+  //   data: initialMembers,
+  //   refetch,
+  // } = trpc.listMember.getListByOwnerAddress.useQuery(
+  //   {
+  //     address: userAddress as `0x${string}`,
+  //   },
+  //   {
+  //     refetchOnWindowFocus: false,
+  //     enabled: !!userAddress,
+  //   }
+  // );
+
+  const [finalMembers, setFinalMembers] = useState<memberType[]>([]);
+  // console.log(finalMembers);
+
+  // state updates when list changes
+  useEffect(() => {
+    setName(list ? list.Name : "");
+    setDescription(list ? list.Description : "");
+  }, [list]);
 
   // action handlers
   const handleCancel = () => {
@@ -88,6 +119,8 @@ const ManageListModal = ({
     setNameError("");
     setDescription("");
     setDescriptionError("");
+    setTags([]);
+    setFinalMembers([]);
   };
 
   const handleCreate = () => {
@@ -103,15 +136,26 @@ const ManageListModal = ({
       setDescriptionError("Description must be less than 35 characters");
     }
 
-    if (nameError === "" || descriptionError === "") {
+    if (nameError !== "" || descriptionError !== "") {
       return;
     }
 
-    closeModal();
-    setName("");
-    setNameError("");
-    setDescription("");
-    setDescriptionError("");
+    createListMutation.mutate(
+      {
+        owner: userAddress,
+        name: debouncedName,
+        description: debouncedDescription,
+        members: finalMembers,
+        tags: tags,
+      },
+      {
+        onSuccess: () => {
+          refetchLists();
+        },
+      }
+    );
+
+    handleCancel();
   };
 
   return (
@@ -136,7 +180,7 @@ const ManageListModal = ({
             errorMessage={descriptionError}
           />
           <TagInput tags={tags} setTags={setTags} />
-          <ManageMembers members={afterMembers} setMembers={setAfterMembers} />
+          <ManageMembers members={finalMembers} setMembers={setFinalMembers} />
           <div className="mt-4 flex flex-row justify-end gap-x-3">
             <button
               onClick={handleCancel}
@@ -150,7 +194,7 @@ const ManageListModal = ({
               type="button"
               className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-normal text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-indigo-800"
             >
-              Create
+              {list ? "Update" : "Create"}
             </button>
           </div>
         </div>

@@ -1,0 +1,56 @@
+import { z } from "zod";
+
+import { router, publicProcedure } from "../trpc";
+
+export const listRouter = router({
+  createList: publicProcedure
+    .input(
+      z.object({
+        owner: z.string(),
+        name: z.string(),
+        description: z.string(),
+        members: z.array(
+          z.object({
+            memberId: z.string(),
+            memberName: z.string(),
+            memberHandle: z.string(),
+            memberPicture: z.string(),
+          })
+        ),
+        tags: z.array(z.string()),
+      })
+    )
+    .mutation(({ input, ctx }) => {
+      return ctx.prisma.list.create({
+        data: {
+          Owner: input.owner,
+          Name: input.name,
+          Description: input.description,
+          ListMember: {
+            createMany: {
+              data: input.members.map((member) => ({
+                memberId: member.memberId,
+                memberName: member.memberName,
+                memberHandle: member.memberHandle,
+                memberPicture: member.memberPicture,
+              })),
+            },
+          },
+          ListTag: {
+            createMany: {
+              data: input.tags.map((tag) => ({
+                tag,
+              })),
+            },
+          },
+        },
+      });
+    }),
+  getListByOwnerAddress: publicProcedure
+    .input(z.object({ address: z.string() }))
+    .query(({ input, ctx }) => {
+      return ctx.prisma.list.findMany({
+        where: { Owner: input.address },
+      });
+    }),
+});

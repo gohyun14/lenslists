@@ -1,32 +1,43 @@
 import { useState } from "react";
 import Link from "next/link";
-import ManageListModal from "./ManageListModal";
+import { useAtom } from "jotai";
+import { trpc } from "../../utils/trpc";
+import { type List } from "@prisma/client";
 
-const lists = [
-  {
-    id: 1,
-    name: "Projects",
-    description: "All the projects I'm following",
-    members: "10",
-    followers: "24",
-    tags: 7,
-    created: "10-11-2022",
-  },
-  // More people...
-];
+import ManageListModal from "./ManageListModal";
+import { addressAtom } from "../../store";
 
 const YourListsTable = () => {
+  const [userAddress] = useAtom(addressAtom);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const [isModalCreate, setIsModalCreate] = useState<boolean>(true);
+  const [editList, setEditList] = useState<List | undefined>(undefined);
+
+  const {
+    isLoading,
+    data: lists,
+    refetch: refetchLists,
+  } = trpc.list.getListByOwnerAddress.useQuery(
+    {
+      address: userAddress as `0x${string}`,
+    },
+    {
+      refetchOnWindowFocus: false,
+      enabled: !!userAddress,
+    }
+  );
 
   const handleCreateList = () => {
     setModalOpen(true);
-    setIsModalCreate(true);
   };
 
-  const handleEditList = () => {
+  const handleEditList = (list: List) => {
+    setEditList(list);
     setModalOpen(true);
-    setIsModalCreate(false);
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+    setEditList(undefined);
   };
 
   return (
@@ -63,19 +74,7 @@ const YourListsTable = () => {
                   scope="col"
                   className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                 >
-                  Members
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                >
-                  Followers
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                >
-                  Tags
+                  Description
                 </th>
                 <th
                   scope="col"
@@ -89,45 +88,36 @@ const YourListsTable = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
-              {lists.map((list) => (
+              {lists?.map((list) => (
                 <tr key={list.id}>
                   <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6">
-                    <div className="font-medium text-gray-900">{list.name}</div>
-                    <div className="font-light text-gray-500">
-                      {list.description}
-                    </div>
+                    {list.Name}
                   </td>
                   <td className="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-500 lg:table-cell">
-                    {list.members}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {list.followers}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    {list.tags}
+                    {list.Description}
                   </td>
                   <td className="whitespace-nowrap py-4 pl-3 text-sm text-gray-500">
-                    {list.created}
+                    {list.createdAt.toLocaleString().split(",")[0]}
                   </td>
                   <td className="whitespace-nowrap py-4 pl-3 pr-4 text-sm font-medium sm:pr-6 sm:pl-0">
                     <div className="flex justify-end gap-x-4">
                       <button
                         className="text-indigo-600 hover:text-indigo-800 hover:underline"
-                        onClick={handleEditList}
+                        onClick={() => handleEditList(list)}
                       >
-                        Edit<span className="sr-only">, {list.name}</span>
+                        Edit<span className="sr-only">, {list.Name}</span>
                       </button>
                       <Link
                         href="#"
                         className="text-gray-600 hover:text-gray-800 hover:underline"
                       >
-                        View<span className="sr-only">, {list.name}</span>
+                        View<span className="sr-only">, {list.Name}</span>
                       </Link>
                       <button
                         className="text-red-600 hover:text-red-800 hover:underline"
                         // onClick={handleEditList}
                       >
-                        Delete<span className="sr-only">, {list.name}</span>
+                        Delete<span className="sr-only">, {list.Name}</span>
                       </button>
                     </div>
                   </td>
@@ -138,9 +128,11 @@ const YourListsTable = () => {
         </div>
       </div>
       <ManageListModal
-        isCreate={isModalCreate}
         isOpen={modalOpen}
-        closeModal={() => setModalOpen(false)}
+        closeModal={handleClose}
+        userAddress={userAddress as `0x${string}`}
+        refetchLists={refetchLists}
+        list={editList}
       />
     </>
   );
