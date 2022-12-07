@@ -2,7 +2,7 @@ import { type Dispatch, type SetStateAction, useState, useEffect } from "react";
 import { apolloClient } from "../../pages/_app";
 import { querySearch } from "../../queries/queries";
 import { PlusSmallIcon } from "@heroicons/react/24/outline";
-import { type memberType } from "./ManageListModal";
+import { type memberType } from "./ManageListForm";
 import { useDebounce } from "use-debounce";
 
 import AutoCompleteProfiles from "./AutoCompleteProfiles";

@@ -2,7 +2,7 @@ import { type Dispatch, type SetStateAction, Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { type memberType } from "./ManageListModal";
+import { type memberType } from "./ManageListForm";
 
 type AutoCompleteDropdownProps = {
   query: string;

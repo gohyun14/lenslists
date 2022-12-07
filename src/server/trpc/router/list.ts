@@ -53,4 +53,28 @@ export const listRouter = router({
         where: { Owner: input.address },
       });
     }),
+  updateListByListId: publicProcedure
+    .input(
+      z.object({
+        listId: z.string(),
+        name: z.string(),
+        description: z.string(),
+      })
+    )
+    .mutation(({ input, ctx }) => {
+      return ctx.prisma.list.update({
+        where: { id: input.listId },
+        data: {
+          Name: input.name,
+          Description: input.description,
+        },
+      });
+    }),
+  deleteListByListId: publicProcedure
+    .input(z.object({ listId: z.string() }))
+    .mutation(({ input, ctx }) => {
+      return ctx.prisma.list.delete({
+        where: { id: input.listId },
+      });
+    }),
 });

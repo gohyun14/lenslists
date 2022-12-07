@@ -6,8 +6,6 @@ import ManageListsPage from "../components/manage/ManageListsPage";
 import { trpc } from "../utils/trpc";
 
 const ManageLists: NextPage = () => {
-  const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
-
   return (
     <>
       <Head>
