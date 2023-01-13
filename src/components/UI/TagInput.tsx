@@ -11,7 +11,12 @@ const TagInput = ({ tags, setTags }: TagInputProps) => {
   const [newTag, setNewTag] = useState("");
 
   const onTagAdd = (newTag: string) => {
-    if (newTag === "" || tags.includes(newTag) || tags.length >= 5) {
+    if (
+      newTag === "" ||
+      tags.includes(newTag) ||
+      tags.length >= 7 ||
+      newTag.includes(" ")
+    ) {
       return;
     }
     setTags((prevTags) => [...prevTags, newTag]);
@@ -32,7 +37,10 @@ const TagInput = ({ tags, setTags }: TagInputProps) => {
         htmlFor="input"
         className="block text-sm font-medium text-gray-700"
       >
-        Tags <span className="text-xs font-light text-gray-500">(max 5)</span>
+        Tags{" "}
+        <span className="text-xs font-light text-gray-500">
+          (single-word, max 7)
+        </span>
       </label>
       <div className="relative mt-1 flex gap-x-1">
         <button

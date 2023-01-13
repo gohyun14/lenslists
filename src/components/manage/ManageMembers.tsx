@@ -4,20 +4,10 @@ import { querySearch } from "../../queries/queries";
 import { PlusSmallIcon } from "@heroicons/react/24/outline";
 import { type memberType } from "./ManageListForm";
 import { useDebounce } from "use-debounce";
+import { ipfsLinkTransform } from "../../utils/utils";
 
 import AutoCompleteProfiles from "./AutoCompleteProfiles";
 import Tag from "../UI/Tag";
-
-const ipfsLinkTransform = (raw: string): string => {
-  if (raw.includes("ipfs://")) {
-    // fetch(raw.replace("ipfs://", "https://ipfs.io/ipfs/")).then((res) =>
-    //   console.log(res)
-    // );
-    // console.log(raw.replace("ipfs://", "https://ipfs.io/ipfs/"));
-    return raw.replace("ipfs://", "https://ipfs.io/ipfs/");
-  }
-  return raw;
-};
 
 type ManageMembersProps = {
   members: memberType[];

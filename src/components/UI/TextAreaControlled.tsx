@@ -36,7 +36,7 @@ const TextAreaControlled = ({
         <textarea
           name="input"
           id="input"
-          rows={2}
+          rows={3}
           className={classNames(
             "block w-full rounded-md border px-3 py-2 shadow-sm sm:text-sm",
             error

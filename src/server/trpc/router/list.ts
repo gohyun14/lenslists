@@ -46,11 +46,18 @@ export const listRouter = router({
         },
       });
     }),
-  getListByOwnerAddress: publicProcedure
+  getAllListsByOwnerAddress: publicProcedure
     .input(z.object({ address: z.string() }))
     .query(({ input, ctx }) => {
       return ctx.prisma.list.findMany({
         where: { Owner: input.address },
+      });
+    }),
+  getListByListId: publicProcedure
+    .input(z.object({ listId: z.string() }))
+    .query(({ input, ctx }) => {
+      return ctx.prisma.list.findUnique({
+        where: { id: input.listId },
       });
     }),
   updateListByListId: publicProcedure

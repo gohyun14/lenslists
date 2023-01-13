@@ -25,7 +25,7 @@ const MainNavigation = () => {
   useEffect(() => setIsWalletConnected(isConnected), [isConnected]);
 
   return (
-    <Disclosure as="nav" className="sticky top-0 z-0 bg-white shadow">
+    <Disclosure as="nav" className="sticky top-0 z-30 bg-white shadow">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
@@ -128,7 +128,7 @@ const MainNavigation = () => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="hidden lg:ml-8 lg:flex lg:items-center">
+              <div className="hidden lg:flex lg:items-center">
                 {/* Profile dropdown */}
                 <CustomConnectButton />
               </div>

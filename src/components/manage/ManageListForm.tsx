@@ -8,6 +8,7 @@ import TextAreaControlled from "../UI/TextAreaControlled";
 import TagInput from "../UI/TagInput";
 import ManageMembers from "./ManageMembers";
 import LoadingSpinner from "../UI/LoadingSpinner";
+import Modal from "../UI/Modal";
 
 export type memberType = {
   memberId: string;
@@ -17,6 +18,7 @@ export type memberType = {
 };
 
 type ManageListFormProps = {
+  isOpen: boolean;
   closeModal: () => void;
   userAddress: `0x${string}`;
   refetchLists: () => void;
@@ -24,6 +26,7 @@ type ManageListFormProps = {
 };
 
 const ManageListForm = ({
+  isOpen,
   closeModal,
   userAddress,
   refetchLists,
@@ -60,8 +63,8 @@ const ManageListForm = ({
   const [descriptionError, setDescriptionError] = useState("");
 
   useEffect(() => {
-    if (debouncedDescription.length > 35) {
-      setDescriptionError("Description must be less than 35 characters");
+    if (debouncedDescription.length > 75) {
+      setDescriptionError("Description must be less than 75 characters");
     } else if (descriptionError !== "" && debouncedDescription === "") {
       setDescriptionError("Description is required");
     } else {
@@ -148,8 +151,8 @@ const ManageListForm = ({
     if (debouncedDescription === "") {
       setDescriptionError("Description is required");
       isValid = false;
-    } else if (debouncedDescription.length > 35) {
-      setDescriptionError("Description must be less than 35 characters");
+    } else if (debouncedDescription.length > 75) {
+      setDescriptionError("Description must be less than 75 characters");
       isValid = false;
     }
 
@@ -235,7 +238,7 @@ const ManageListForm = ({
   };
 
   return (
-    <>
+    <Modal isOpen={isOpen} closeModal={closeModal}>
       {(isMembersLoading ||
         isTagsLoading ||
         isMembersFetching ||
@@ -247,7 +250,7 @@ const ManageListForm = ({
       ) : (
         <div className="max-w-xl">
           <h3 className="mb-5 text-xl font-medium leading-6 text-gray-900">
-            Create List
+            {list ? "Edit" : "Create"} List
           </h3>
           <div className="flex flex-col gap-y-4">
             <InputControlled
@@ -285,7 +288,7 @@ const ManageListForm = ({
           </div>
         </div>
       )}
-    </>
+    </Modal>
   );
 };
 

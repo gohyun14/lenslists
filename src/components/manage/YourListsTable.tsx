@@ -37,7 +37,7 @@ const YourListsTable = () => {
     isFetching,
     data: lists,
     refetch: refetchLists,
-  } = trpc.list.getListByOwnerAddress.useQuery(
+  } = trpc.list.getAllListsByOwnerAddress.useQuery(
     {
       address: userAddress as `0x${string}`,
     },
@@ -160,7 +160,7 @@ const YourListsTable = () => {
                           Edit<span className="sr-only">, {list.Name}</span>
                         </button>
                         <Link
-                          href="#"
+                          href={`/lists/${list.id}`}
                           className="text-gray-600 hover:text-gray-800 hover:underline"
                         >
                           View<span className="sr-only">, {list.Name}</span>
@@ -189,14 +189,13 @@ const YourListsTable = () => {
           </table>
         </div>
       </div>
-      <Modal isOpen={isListFormModalOpen} closeModal={handleCloseListFormModal}>
-        <ManageListForm
-          closeModal={handleCloseListFormModal}
-          userAddress={userAddress as `0x${string}`}
-          refetchLists={refetchLists}
-          list={editList}
-        />
-      </Modal>
+      <ManageListForm
+        isOpen={isListFormModalOpen}
+        closeModal={handleCloseListFormModal}
+        userAddress={userAddress as `0x${string}`}
+        refetchLists={refetchLists}
+        list={editList}
+      />
       <Modal
         isOpen={isDeleteAlertModalOpen}
         closeModal={handleCloseDeleteAlertModal}

@@ -970,6 +970,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tailwindcss/line-clamp@npm:^0.4.2":
+  version: 0.4.2
+  resolution: "@tailwindcss/line-clamp@npm:0.4.2"
+  peerDependencies:
+    tailwindcss: ">=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1"
+  checksum: 26b8135df24fff51c3d3790ae795bdc12bc4a7113fa22dcab80568ae6ee00710e2ed4154048958c472bb654061f0f1573b7ac5e004ae6222cbd5ac6fcf199478
+  languageName: node
+  linkType: hard
+
 "@tanstack/match-sorter-utils@npm:8.1.1":
   version: 8.1.1
   resolution: "@tanstack/match-sorter-utils@npm:8.1.1"
@@ -2573,6 +2582,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"core-js@npm:^3.26.1":
+  version: 3.27.1
+  resolution: "core-js@npm:3.27.1"
+  checksum: d50b5f88aea4302512ad9446c18e90f4d35dea1e6d8d3f87337690677061565ff11a670f1e0c87de57aa6074375fbb25ed5784076c040d3c4de8b4bce7d2ebeb
+  languageName: node
+  linkType: hard
+
 "create-hash@npm:^1.1.0, create-hash@npm:^1.1.2, create-hash@npm:^1.2.0":
   version: 1.2.0
   resolution: "create-hash@npm:1.2.0"
@@ -2640,6 +2656,13 @@ __metadata:
   version: 3.1.1
   resolution: "csstype@npm:3.1.1"
   checksum: 1f7b4f5fdd955b7444b18ebdddf3f5c699159f13e9cf8ac9027ae4a60ae226aef9bbb14a6e12ca7dba3358b007cee6354b116e720262867c398de6c955ea451d
+  languageName: node
+  linkType: hard
+
+"custom-event-polyfill@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "custom-event-polyfill@npm:1.0.7"
+  checksum: f9ff2cf13e482a75b3cf83dce9e2c6e3063c5ac1b9c23ac440e4f27e875b0873445b11811237f3f30aeb1216e9ad20f9f9d30ccf5b1b658a4e50dd0b3e67b629
   languageName: node
   linkType: hard
 
@@ -4607,6 +4630,7 @@ __metadata:
     "@heroicons/react": ^2.0.13
     "@prisma/client": ^4.5.0
     "@rainbow-me/rainbowkit": ^0.8.0
+    "@tailwindcss/line-clamp": ^0.4.2
     "@tanstack/react-query": ^4.16.1
     "@tanstack/react-query-devtools": ^4.16.1
     "@trpc/client": ^10.0.0
@@ -4625,6 +4649,7 @@ __metadata:
     graphql: ^16.6.0
     jotai: ^1.10.0
     next: 13.0.2
+    plyr-react: ^5.1.2
     postcss: ^8.4.14
     prettier: ^2.7.1
     prettier-plugin-tailwindcss: ^0.1.13
@@ -4654,6 +4679,13 @@ __metadata:
   version: 2.0.6
   resolution: "lilconfig@npm:2.0.6"
   checksum: 40a3cd72f103b1be5975f2ac1850810b61d4053e20ab09be8d3aeddfe042187e1ba70b4651a7e70f95efa1642e7dc8b2ae395b317b7d7753b241b43cef7c0f7d
+  languageName: node
+  linkType: hard
+
+"loadjs@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "loadjs@npm:4.2.0"
+  checksum: 2144723f55c75260ce6781b36009c40d098d96fe06e3ec5c85ba250cf96c3a0aa37169b829e818c40bcba7c5141a8e52736fec193333bb6260ab95f9a493a2ef
   languageName: node
   linkType: hard
 
@@ -5413,6 +5445,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"plyr-react@npm:^5.1.2":
+  version: 5.1.2
+  resolution: "plyr-react@npm:5.1.2"
+  dependencies:
+    plyr: ^3.7.3
+    react-aptor: ^2.0.0-alpha.1
+  peerDependencies:
+    plyr: ^3.7.3
+    react: ">=16.8"
+  peerDependenciesMeta:
+    plyr:
+      optional: false
+    react:
+      optional: true
+  checksum: 7bbef91c2a6a7b603213c6ab8003d7438ea72d05efd0ff3a708c679e7e059c2ee3f4c0ee9569cbd4fb8249d612e210d8d156ccc472956f4abc74a28cf7498a97
+  languageName: node
+  linkType: hard
+
+"plyr@npm:^3.7.3":
+  version: 3.7.3
+  resolution: "plyr@npm:3.7.3"
+  dependencies:
+    core-js: ^3.26.1
+    custom-event-polyfill: ^1.0.7
+    loadjs: ^4.2.0
+    rangetouch: ^2.0.1
+    url-polyfill: ^1.1.12
+  checksum: cf92b7da3915add823b230a7df495ca66929453c1cf223a92f41a85a4b5ea6918505cf5bedc8be0fb893d4484d7f22978db30dbe77fbfefbe070ea70b3cffb4a
+  languageName: node
+  linkType: hard
+
 "pngjs@npm:^3.3.0":
   version: 3.4.0
   resolution: "pngjs@npm:3.4.0"
@@ -5676,6 +5739,25 @@ __metadata:
   dependencies:
     safe-buffer: ^5.1.0
   checksum: d779499376bd4cbb435ef3ab9a957006c8682f343f14089ed5f27764e4645114196e75b7f6abf1cbd84fd247c0cb0651698444df8c9bf30e62120fbbc52269d6
+  languageName: node
+  linkType: hard
+
+"rangetouch@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "rangetouch@npm:2.0.1"
+  checksum: 2aa7c0901d28356ef0c02021656ed7d11fc6652f01ffe92806862fc4593e75f7a5d52d4455fa1b0ab2123d438e03dc091315949dbfad9562a680440ac0dfeb7d
+  languageName: node
+  linkType: hard
+
+"react-aptor@npm:^2.0.0-alpha.1":
+  version: 2.0.0
+  resolution: "react-aptor@npm:2.0.0"
+  peerDependencies:
+    react: ">=16.8"
+  peerDependenciesMeta:
+    react:
+      optional: true
+  checksum: 8bad4074b6b1afa194c15e1a14e2ceb1bf1349fa21cb666ba195931f8db3f68c286456aa9f2db1cac9efd9a5c642eb84b5ace52d8576191ca0b5465ca822fd28
   languageName: node
   linkType: hard
 
@@ -6650,6 +6732,13 @@ __metadata:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"url-polyfill@npm:^1.1.12":
+  version: 1.1.12
+  resolution: "url-polyfill@npm:1.1.12"
+  checksum: 3214cc82424c215e921dacadac56b4b099f995d24e14078369bea9ff8aa74d1a4c803ab03021e61e0a275bee7979d212d046092dba3aab73cf232ee6739ddee4
   languageName: node
   linkType: hard
 

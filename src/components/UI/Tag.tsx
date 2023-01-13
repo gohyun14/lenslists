@@ -8,7 +8,7 @@ type TagProps = {
 
 const Tag = ({ text, index, onDelete }: TagProps) => {
   return (
-    <li className="flex w-min rounded-md bg-indigo-100 py-1 pl-2 pr-1 text-sm font-light text-indigo-700 shadow-sm">
+    <li className="flex rounded-md bg-indigo-100 py-1 pl-2 pr-1 text-sm font-light text-indigo-700 shadow-sm">
       <p className="flex items-center gap-x-1">
         {text}{" "}
         <XMarkIcon
