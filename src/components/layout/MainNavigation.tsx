@@ -29,7 +29,7 @@ const MainNavigation = () => {
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
-            <div className="flex h-14 justify-between">
+            <div className="flex h-14 justify-between sm:justify-around">
               <div className="flex flex-shrink-0 items-center">
                 <Link href="/">
                   <ListBulletIcon
@@ -38,7 +38,7 @@ const MainNavigation = () => {
                   />
                 </Link>
               </div>
-              <div className="flex px-2 lg:px-0">
+              <div className="hidden sm:flex sm:px-2 lg:px-0">
                 <div className="hidden lg:ml-11 lg:flex lg:items-center lg:gap-x-4">
                   <Link
                     href="/"
@@ -117,6 +117,10 @@ const MainNavigation = () => {
                   </Menu>
                 </div>
               </div>
+              <div className="flex items-center">
+                {/* Profile dropdown */}
+                <CustomConnectButton />
+              </div>
               <div className="flex items-center lg:hidden">
                 {/* Mobile menu button */}
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -127,10 +131,6 @@ const MainNavigation = () => {
                     <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
-              </div>
-              <div className="hidden lg:flex lg:items-center">
-                {/* Profile dropdown */}
-                <CustomConnectButton />
               </div>
             </div>
           </div>

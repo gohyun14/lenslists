@@ -1,7 +1,13 @@
 import React from "react";
+import { useAtom } from "jotai";
+import { addressAtom } from "../../store";
+
 import YourListsTable from "./YourListsTable";
+import FollowedListsSection from "./FollowedListsSection";
 
 const ManageListsPage = () => {
+  const [userAddress] = useAtom(addressAtom);
+
   return (
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
       {/* <div className="mx-auto max-w-md px-4 pt-8 pb-20 text-center sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
@@ -13,8 +19,9 @@ const ManageListsPage = () => {
           following
         </p>
       </div> */}
-      <div className="pt-16">
-        <YourListsTable />
+      <div className="flex flex-col gap-y-20 pt-16">
+        <YourListsTable userAddress={userAddress} />
+        <FollowedListsSection userAddress={userAddress} />
       </div>
     </div>
   );

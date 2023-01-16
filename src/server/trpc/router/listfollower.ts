@@ -49,4 +49,11 @@ export const listFollowerRouter = router({
         },
       });
     }),
+  getAllFollowedListsByAddress: publicProcedure
+    .input(z.object({ address: z.string() }))
+    .query(({ input, ctx }) => {
+      return ctx.prisma.listFollower.findMany({
+        where: { follower: input.address },
+      });
+    }),
 });

@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useAtom } from "jotai";
 import { trpc } from "../../utils/trpc";
 import { type List } from "@prisma/client";
-import { addressAtom } from "../../store";
 
 import ManageListForm from "./ManageListForm";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import Modal from "../UI/Modal";
 import DeleteListAlert from "./DeleteListAlert";
 
-const YourListsTable = () => {
+type YourListsTableProps = {
+  userAddress: string | undefined;
+};
+
+const YourListsTable = ({ userAddress }: YourListsTableProps) => {
   //trpc delete list mutations
   const deleteListMutation = trpc.list.deleteListByListId.useMutation();
   const deleteListMembersMutation =
@@ -18,9 +20,6 @@ const YourListsTable = () => {
   const deleteListFollowersMutation =
     trpc.listFollower.deleteAllFollowersByListId.useMutation();
   const deleteListTags = trpc.listTag.deleteAllTagsByListId.useMutation();
-
-  // user address
-  const [userAddress] = useAtom(addressAtom);
 
   // modal state
   const [isListFormModalOpen, setIsListFormModalOpen] =
@@ -141,7 +140,7 @@ const YourListsTable = () => {
                 </tr>
               ) : lists?.length !== undefined && lists?.length > 0 ? (
                 lists?.map((list) => (
-                  <tr key={list.id}>
+                  <tr key={list.id} className="hover:bg-gray-50">
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6">
                       {list.Name}
                     </td>

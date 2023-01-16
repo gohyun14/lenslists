@@ -84,4 +84,11 @@ export const listRouter = router({
         where: { id: input.listId },
       });
     }),
+  getManyListsByListIds: publicProcedure
+    .input(z.object({ listIds: z.array(z.string()) }))
+    .query(({ input, ctx }) => {
+      return ctx.prisma.list.findMany({
+        where: { id: { in: input.listIds } },
+      });
+    }),
 });
