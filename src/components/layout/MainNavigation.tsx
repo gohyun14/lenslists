@@ -9,7 +9,11 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAccount } from "wagmi";
+import { useAtom } from "jotai";
+import { addressAtom } from "../../store";
+
 import CustomConnectButton from "../UI/CustomConnectButton";
+import TestAccountButton from "../UI/TestAccountButton";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -20,6 +24,7 @@ const MainNavigation = () => {
   const activeLink = router.pathname;
 
   const { isConnected, address } = useAccount();
+  const [userAddress, setUserAddressState] = useAtom(addressAtom);
 
   const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
   useEffect(() => setIsWalletConnected(isConnected), [isConnected]);
@@ -121,7 +126,11 @@ const MainNavigation = () => {
               </div>
               <div className="flex items-center">
                 {/* Profile dropdown */}
-                <CustomConnectButton />
+                {userAddress === "0xtest" ? (
+                  <TestAccountButton />
+                ) : (
+                  <CustomConnectButton />
+                )}
               </div>
               <div className="flex items-center lg:hidden">
                 {/* Mobile menu button */}

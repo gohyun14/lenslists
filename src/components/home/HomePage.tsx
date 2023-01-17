@@ -13,7 +13,7 @@ import ListBody from "../lists/ListBody";
 import LoadingSpinner from "../UI/LoadingSpinner";
 
 const HomePage = () => {
-  const [userAddress] = useAtom(addressAtom);
+  const [userAddress, setUserAddress] = useAtom(addressAtom);
 
   const [posts, setPosts] = useState<PostType[]>([]);
   const [selectedList, setSelectedList] = useState<List | undefined>();
@@ -127,6 +127,15 @@ const HomePage = () => {
         </h1>
         <h3 className="w-fit text-3xl text-gray-600">
           Please log in to view your lists.
+        </h3>
+        <h3 className="w-fit text-3xl text-gray-600">
+          or{" "}
+          <span
+            onClick={() => setUserAddress("0xtest")}
+            className="text-indigo-600 hover:cursor-pointer hover:text-indigo-700 hover:underline"
+          >
+            login as Test User
+          </span>{" "}
         </h3>
       </div>
     );

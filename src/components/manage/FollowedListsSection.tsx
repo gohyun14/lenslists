@@ -72,6 +72,7 @@ const FollowedListsSection = ({ userAddress }: FollowedListsSectionProps) => {
           role="list"
           className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
+          {allListsData?.length === 0 && <div>No Lists Found</div>}
           {allListsData?.map((list) => (
             <li
               key={list.id}

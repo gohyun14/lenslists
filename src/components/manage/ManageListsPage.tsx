@@ -6,7 +6,34 @@ import YourListsTable from "./YourListsTable";
 import FollowedListsSection from "./FollowedListsSection";
 
 const ManageListsPage = () => {
-  const [userAddress] = useAtom(addressAtom);
+  const [userAddress, setUserAddress] = useAtom(addressAtom);
+
+  if (!userAddress) {
+    return (
+      <div
+        className="mx-auto mt-16 flex w-fit flex-col rounded-full p-16"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.40' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E")`,
+        }}
+      >
+        <h1 className="w-fit text-7xl font-semibold text-gray-800">
+          Not Logged In
+        </h1>
+        <h3 className="w-fit text-3xl text-gray-600">
+          Please log in to manage your lists.
+        </h3>
+        <h3 className="w-fit text-3xl text-gray-600">
+          or{" "}
+          <span
+            onClick={() => setUserAddress("0xtest")}
+            className="text-indigo-600 hover:cursor-pointer hover:text-indigo-700 hover:underline"
+          >
+            login as Test User
+          </span>{" "}
+        </h3>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
