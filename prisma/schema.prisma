@@ -2,16 +2,52 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
-model Example {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model List {
+  id           String         @id @default(cuid())
+  createdAt    DateTime       @default(now())
+  Owner        String // creator wallet address
+  Name         String
+  Description  String
+  ListMember   ListMember[]
+  ListFollower ListFollower[]
+  ListTag      ListTag[]
 }
+
+model ListMember {
+  list          List   @relation(fields: [listId], references: [id])
+  listId        String
+  memberId      String // the lens profile id
+  memberName    String // lens profile name
+  memberHandle  String // lens profile handle
+  memberPicture String // lens profile picture link
+
+  @@id([listId, memberId])
+}
+
+model ListFollower {
+  list     List   @relation(fields: [listId], references: [id])
+  listId   String
+  follower String // the wallet address of follower
+
+  @@id([listId, follower])
+}
+
+model ListTag {
+  list   List   @relation(fields: [listId], references: [id])
+  listId String
+  tag    String
+
+  @@id([listId, tag])
+}
+
+/// max 8 tags per post
