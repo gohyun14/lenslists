@@ -5,6 +5,7 @@ import { addressAtom } from "../../store";
 
 import ListsGrid from "./ListsGrid";
 import SortPanel from "./SortPanel";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 export type FullList = {
   id: string;
@@ -87,7 +88,11 @@ const ExplorePage = () => {
   return (
     <>
       <div className="relative mx-auto max-w-7xl sm:px-6 lg:px-8">
-        {allListsData && <ListsGrid lists={filteredLists} />}
+        {isAllListsDataLoading ? (
+          <LoadingSpinner />
+        ) : (
+          allListsData && <ListsGrid lists={filteredLists} />
+        )}
         <button
           type="button"
           className="fixed left-4 top-[4.5rem] inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-normal text-white shadow-md hover:bg-indigo-700 active:bg-indigo-800"
