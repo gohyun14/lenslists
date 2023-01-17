@@ -2,18 +2,27 @@ import React from "react";
 import { Dialog } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
-type DeleteListAlertProps = {
+type AlertProps = {
   onCancel: () => void;
-  onDelete: () => void;
+  onSubmit: () => void;
+  labelSubmit: string;
+  title: string;
+  description: string;
 };
 
-const DeleteListAlert = ({ onCancel, onDelete }: DeleteListAlertProps) => {
+const Alert = ({
+  onCancel,
+  onSubmit,
+  labelSubmit,
+  title,
+  description,
+}: AlertProps) => {
   return (
     <>
       <div>
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
           <ExclamationTriangleIcon
-            className="h-6 w-6 text-indigo-600"
+            className="h-6 w-6 text-red-600"
             aria-hidden="true"
           />
         </div>
@@ -22,24 +31,20 @@ const DeleteListAlert = ({ onCancel, onDelete }: DeleteListAlertProps) => {
             as="h3"
             className="text-lg font-medium leading-6 text-gray-900"
           >
-            Delete List
+            {title}
           </Dialog.Title>
           <div className="mt-2">
-            <p className="text-sm text-gray-500">
-              Are you sure you want to delete this list? The list and all of its
-              data will be permanently removed from our servers forever. This
-              action cannot be undone.
-            </p>
+            <p className="text-sm text-gray-500">{description}</p>
           </div>
         </div>
       </div>
       <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
         <button
           type="button"
-          className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-indigo-800 sm:col-start-2 sm:text-sm"
-          onClick={onDelete}
+          className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 active:bg-red-800 sm:col-start-2 sm:text-sm"
+          onClick={onSubmit}
         >
-          Delete
+          {labelSubmit}
         </button>
         <button
           type="button"
@@ -53,4 +58,4 @@ const DeleteListAlert = ({ onCancel, onDelete }: DeleteListAlertProps) => {
   );
 };
 
-export default DeleteListAlert;
+export default Alert;

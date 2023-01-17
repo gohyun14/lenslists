@@ -6,7 +6,7 @@ import { type List } from "@prisma/client";
 import ManageListForm from "./ManageListForm";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import Modal from "../UI/Modal";
-import DeleteListAlert from "./DeleteListAlert";
+import Alert from "./Alert";
 
 type YourListsTableProps = {
   userAddress: string | undefined;
@@ -199,9 +199,14 @@ const YourListsTable = ({ userAddress }: YourListsTableProps) => {
         isOpen={isDeleteAlertModalOpen}
         closeModal={handleCloseDeleteAlertModal}
       >
-        <DeleteListAlert
+        <Alert
           onCancel={handleCloseDeleteAlertModal}
-          onDelete={handleDeleteList}
+          onSubmit={handleDeleteList}
+          labelSubmit="Delete"
+          title="Delete List"
+          description="Are you sure you want to delete this list? The list and all of its
+          data will be permanently removed from our servers forever. This
+          action cannot be undone."
         />
       </Modal>
     </>

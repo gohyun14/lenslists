@@ -26,6 +26,7 @@ const PostBody = ({ post }: PostBodyProps) => {
 
   const contentTokens = contentTokenTransform(post.metadata.content);
 
+  // pick out links and @mentions
   const contentJSX = contentTokens.map((token) => {
     if (token.startsWith("http")) {
       return (
@@ -41,12 +42,15 @@ const PostBody = ({ post }: PostBodyProps) => {
       );
     } else if (token.startsWith("@")) {
       return (
-        <span
+        <a
           key={token + post.id + Math.random()}
-          className="font-semibold text-indigo-600"
+          href={`https://lenster.xyz/u/${token.slice(1)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-indigo-600 hover:underline"
         >
           {token}
-        </span>
+        </a>
       );
     } else {
       return <span key={token + post.id + Math.random()}>{token}</span>;

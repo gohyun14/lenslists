@@ -25,52 +25,53 @@ const MainNavigation = () => {
   useEffect(() => setIsWalletConnected(isConnected), [isConnected]);
 
   return (
-    <Disclosure as="nav" className="sticky top-0 z-30 bg-white shadow">
+    <Disclosure as="nav" className="sticky top-0 z-20 bg-white shadow">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
-            <div className="flex h-14 justify-between sm:justify-around">
-              <div className="flex flex-shrink-0 items-center">
-                <Link href="/">
-                  <ListBulletIcon
-                    className="block h-10 w-10 rounded-full bg-indigo-600 p-2 text-white"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </div>
-              <div className="hidden sm:flex sm:px-2 lg:px-0">
-                <div className="hidden lg:ml-11 lg:flex lg:items-center lg:gap-x-4">
-                  <Link
-                    href="/"
-                    className={
-                      activeLink === "/"
-                        ? "inline-flex h-min items-center rounded-md bg-indigo-200 px-3 py-1 text-sm font-semibold text-gray-900"
-                        : "inline-flex items-center rounded-md px-3 py-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 hover:text-gray-900"
-                    }
-                  >
-                    Home
+            <div className="flex h-14 justify-between sm:justify-between">
+              <div className="flex flex-row items-center">
+                <div className="flex flex-shrink-0 items-center">
+                  <Link href="/">
+                    <ListBulletIcon
+                      className="block h-10 w-10 rounded-full bg-indigo-600 p-2 text-white"
+                      aria-hidden="true"
+                    />
                   </Link>
-                  <Link
-                    href="/manage-lists"
-                    className={
-                      activeLink === "/manage-lists"
-                        ? "inline-flex h-min items-center rounded-md bg-indigo-200 px-3 py-1 text-sm font-semibold text-gray-900"
-                        : "inline-flex items-center rounded-md px-3 py-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 hover:text-gray-900"
-                    }
-                  >
-                    Manage Lists
-                  </Link>
-                  <Link
-                    href="/explore"
-                    className={
-                      activeLink === "/explore"
-                        ? "inline-flex h-min items-center rounded-md bg-indigo-200 px-3 py-1 text-sm font-semibold text-gray-900"
-                        : "inline-flex items-center rounded-md px-3 py-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 hover:text-gray-900"
-                    }
-                  >
-                    Explore
-                  </Link>
-                  <Menu as="div" className="relative">
+                </div>
+                <div className="hidden sm:flex sm:px-2 lg:px-0">
+                  <div className="hidden lg:ml-8 lg:flex lg:items-center lg:gap-x-4">
+                    <Link
+                      href="/"
+                      className={
+                        activeLink === "/"
+                          ? "inline-flex h-min items-center rounded-md bg-indigo-200 px-3 py-1 text-sm font-semibold text-gray-900"
+                          : "inline-flex items-center rounded-md px-3 py-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                      }
+                    >
+                      Home
+                    </Link>
+                    <Link
+                      href="/manage-lists"
+                      className={
+                        activeLink === "/manage-lists"
+                          ? "inline-flex h-min items-center rounded-md bg-indigo-200 px-3 py-1 text-sm font-semibold text-gray-900"
+                          : "inline-flex items-center rounded-md px-3 py-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                      }
+                    >
+                      Manage Lists
+                    </Link>
+                    <Link
+                      href="/explore"
+                      className={
+                        activeLink === "/explore"
+                          ? "inline-flex h-min items-center rounded-md bg-indigo-200 px-3 py-1 text-sm font-semibold text-gray-900"
+                          : "inline-flex items-center rounded-md px-3 py-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                      }
+                    >
+                      Explore
+                    </Link>
+                    {/* <Menu as="div" className="relative">
                     <div>
                       <Menu.Button className="inline-flex items-center rounded-md px-3 py-1 text-sm font-semibold text-gray-600 hover:bg-gray-200 hover:text-gray-900">
                         More
@@ -114,7 +115,8 @@ const MainNavigation = () => {
                         </Menu.Item>
                       </Menu.Items>
                     </Transition>
-                  </Menu>
+                  </Menu> */}
+                  </div>
                 </div>
               </div>
               <div className="flex items-center">
@@ -141,25 +143,37 @@ const MainNavigation = () => {
               <Disclosure.Button
                 as="a"
                 href="/"
-                className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
+                className={
+                  activeLink === "/"
+                    ? "block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
+                    : "block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
+                }
               >
                 Home
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
                 href="/manage-lists"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
+                className={
+                  activeLink === "/manage-lists"
+                    ? "block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
+                    : "block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
+                }
               >
                 Manage Lists
               </Disclosure.Button>
               <Disclosure.Button
                 as="a"
                 href="/explore"
-                className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
+                className={
+                  activeLink === "/explore"
+                    ? "block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
+                    : "block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800"
+                }
               >
                 Explore
               </Disclosure.Button>
-              <Popover className="relative">
+              {/* <Popover className="relative">
                 <>
                   <Popover.Button className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
                     More
@@ -193,7 +207,7 @@ const MainNavigation = () => {
                     </Popover.Panel>
                   </Transition>
                 </>
-              </Popover>
+              </Popover> */}
             </div>
           </Disclosure.Panel>
         </>

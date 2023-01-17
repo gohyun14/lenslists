@@ -91,4 +91,36 @@ export const listRouter = router({
         where: { id: { in: input.listIds } },
       });
     }),
+  getAllLists: publicProcedure.input(z.object({})).query(({ input, ctx }) => {
+    return ctx.prisma.list.findMany({
+      select: {
+        id: true,
+        Name: true,
+        Description: true,
+        Owner: true,
+        createdAt: true,
+        ListTag: {
+          select: { tag: true },
+        },
+        _count: {
+          select: {
+            ListFollower: true,
+          },
+        },
+      },
+    });
+  }),
+  getAllFollowedListsByAddress: publicProcedure
+    .input(z.object({ address: z.string() }))
+    .query(({ input, ctx }) => {
+      return ctx.prisma.list.findMany({
+        where: {
+          ListFollower: {
+            some: {
+              follower: input.address,
+            },
+          },
+        },
+      });
+    }),
 });
