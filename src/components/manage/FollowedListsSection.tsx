@@ -76,7 +76,7 @@ const FollowedListsSection = ({ userAddress }: FollowedListsSectionProps) => {
           {allListsData?.map((list) => (
             <li
               key={list.id}
-              className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow hover:bg-indigo-50 hover:shadow-md"
+              className="col-span-1 divide-y divide-gray-200 rounded-lg border bg-white shadow hover:border-indigo-400 hover:shadow-md"
             >
               <div className="flex w-full items-center justify-between space-x-6 p-6">
                 <div className="flex-1 truncate">

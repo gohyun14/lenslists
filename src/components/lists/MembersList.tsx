@@ -31,27 +31,33 @@ const MembersList = ({ members, isOpen, closeModal }: MembersListType) => {
                 key={member.memberId}
                 className="list-none rounded-md py-2 px-4 text-gray-900 hover:bg-gray-200"
               >
-                <div className="flex items-center">
-                  {member.memberPicture ? (
-                    <img
-                      className="mr-2 h-9 w-9 rounded-full"
-                      src={member.memberPicture}
-                    />
-                  ) : (
-                    <UserCircleIcon
-                      className="mr-2 h-9 w-9 rounded-full stroke-1"
-                      aria-hidden="true"
-                    />
-                  )}
-                  <div className="flex flex-col">
-                    <span className="block truncate font-medium">
-                      {member.memberName}
-                    </span>
-                    <span className="block truncate font-light">
-                      @{member.memberHandle}
-                    </span>
+                <a
+                  href={`https://lenster.xyz/u/${member.memberHandle}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="flex items-center">
+                    {member.memberPicture ? (
+                      <img
+                        className="mr-2 h-9 w-9 rounded-full"
+                        src={member.memberPicture}
+                      />
+                    ) : (
+                      <UserCircleIcon
+                        className="mr-2 h-9 w-9 rounded-full stroke-1"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <div className="flex flex-col">
+                      <span className="block truncate font-medium">
+                        {member.memberName}
+                      </span>
+                      <span className="block truncate font-light">
+                        @{member.memberHandle}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                </a>
               </li>
             ))}
           </ul>

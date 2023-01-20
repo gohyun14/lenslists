@@ -47,12 +47,15 @@ export const querySearch = gql`
 export const getPublications = gql`
   query Publications($id: ProfileId!) {
     publications(
-      request: { profileId: $id, publicationTypes: [POST], limit: 30 }
+      request: { profileId: $id, publicationTypes: [POST, MIRROR], limit: 35 }
     ) {
       items {
         __typename
         ... on Post {
           ...PostFields
+        }
+        ... on Mirror {
+          ...MirrorFields
         }
       }
     }
@@ -72,8 +75,44 @@ export const getPublications = gql`
     createdAt
   }
 
+  fragment MirrorFields on Mirror {
+    id
+    profile {
+      ...ProfileFields
+    }
+    stats {
+      ...PublicationStatsFields
+    }
+    metadata {
+      ...MetadataOutputFields
+    }
+    createdAt
+    mirrorOf {
+      ... on Post {
+        ...PostFields
+      }
+    }
+  }
+
   fragment ProfileFields on Profile {
     id
+    handle
+    name
+    picture {
+      ... on NftImage {
+        contractAddress
+        tokenId
+        uri
+        verified
+      }
+      ... on MediaSet {
+        original {
+          url
+          mimeType
+        }
+      }
+      __typename
+    }
   }
 
   fragment PublicationStatsFields on PublicationStats {

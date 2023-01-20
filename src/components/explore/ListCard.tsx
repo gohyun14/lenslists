@@ -21,7 +21,7 @@ const ListCard = ({ list }: ListCardProps) => {
   return (
     <li
       key={list.id}
-      className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow hover:bg-indigo-50 hover:shadow-md"
+      className="col-span-1 divide-y divide-gray-200 rounded-lg border bg-white shadow hover:border-indigo-400 hover:shadow-md"
     >
       <div className="relative flex w-full items-center justify-between p-6">
         <span className="absolute top-2 left-2 text-xs text-gray-500">
