@@ -1,11 +1,8 @@
 import React from "react";
 import { type FullList } from "./ExplorePage";
 import Link from "next/link";
-import {
-  ArrowTopRightOnSquareIcon,
-  UserMinusIcon,
-} from "@heroicons/react/20/solid";
-import { trpc } from "../../utils/trpc";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
+import { motion } from "framer-motion";
 
 type ListCardProps = {
   list: FullList;
@@ -19,8 +16,12 @@ const ListCard = ({ list }: ListCardProps) => {
   });
 
   return (
-    <li
+    <motion.li
+      layout
       key={list.id}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className="col-span-1 divide-y divide-gray-200 rounded-lg border bg-white shadow hover:border-indigo-400 hover:shadow-md"
     >
       <div className="relative flex w-full items-center justify-between p-6">
@@ -71,7 +72,7 @@ const ListCard = ({ list }: ListCardProps) => {
           </div>
         </div>
       </div>
-    </li>
+    </motion.li>
   );
 };
 
