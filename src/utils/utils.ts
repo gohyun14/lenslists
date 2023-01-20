@@ -10,7 +10,7 @@ export const ipfsLinkTransform = (raw: string): string => {
 };
 
 export const contentTokenTransform = (raw: string): string[] => {
-  const content = raw.split(" ");
+  const content = raw.replace("\n", " ").split(" ");
   const contentReturned: string[] = [""];
   for (let i = 0; i < content.length; i++) {
     if (content[i]?.startsWith("@") || content[i]?.startsWith(`https://`)) {
