@@ -20,6 +20,7 @@ const ListBody = ({ posts, members }: ListBodyProps) => {
       {posts
         .filter(
           (post) =>
+            !(post.mirrorOf?.__typename === "Comment") &&
             post.metadata.content !== null &&
             post.metadata.content !== undefined &&
             map.get(post.profile.id) !== undefined

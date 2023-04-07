@@ -11,19 +11,22 @@ type PostProps = {
 };
 
 const Post = ({ post, member }: PostProps) => {
+  console.log(post);
   let mirrorPicture: string | undefined = undefined;
   if (post.mirrorOf?.profile?.picture !== undefined) {
-    if (post.mirrorOf?.profile.picture.__typename === "MediaSet") {
-      if (post.mirrorOf?.profile.picture.original?.url !== undefined) {
-        mirrorPicture = ipfsLinkTransform(
-          post.mirrorOf?.profile.picture.original?.url as string
-        );
-      }
-    } else {
-      if (post.mirrorOf?.profile?.picture.uri !== undefined) {
-        mirrorPicture = ipfsLinkTransform(
-          post.mirrorOf?.profile.picture.uri as string
-        );
+    if (post.mirrorOf?.profile?.picture?.__typename !== undefined) {
+      if (post.mirrorOf?.profile.picture.__typename === "MediaSet") {
+        if (post.mirrorOf?.profile.picture.original?.url !== undefined) {
+          mirrorPicture = ipfsLinkTransform(
+            post.mirrorOf?.profile.picture.original?.url as string
+          );
+        }
+      } else {
+        if (post.mirrorOf?.profile?.picture.uri !== undefined) {
+          mirrorPicture = ipfsLinkTransform(
+            post.mirrorOf?.profile.picture.uri as string
+          );
+        }
       }
     }
   }
